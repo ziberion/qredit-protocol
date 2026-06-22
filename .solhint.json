@@ -1,0 +1,14 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "compiler-version": ["error", "^0.8.20"],
+    "avoid-suicide": "error",
+    "avoid-sha3": "error",
+    "no-unused-vars": "warn",
+    "func-visibility": ["warn", { "ignoreConstructors": true }],
+    "max-line-length": ["warn", 120],
+    "named-parameters-mapping": "off",
+    "no-empty-blocks": "off"
+  },
+  "excludedFiles": ["contracts/mocks/**"]
+}

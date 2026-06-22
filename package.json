@@ -1,0 +1,33 @@
+{
+  "name": "qredit-protocol",
+  "version": "2.0.0",
+  "description": "Qredit (QRDT) — Decentralized global exchange currency protocol",
+  "scripts": {
+    "compile":        "hardhat compile",
+    "test":           "hardhat test",
+    "test:coverage":  "hardhat coverage",
+    "test:gas":       "REPORT_GAS=true hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local":   "hardhat run scripts/deploy.js --network localhost",
+    "verify":         "hardhat run scripts/verify.js --network sepolia",
+    "node":           "hardhat node",
+    "clean":          "hardhat clean",
+    "lint":           "solhint 'contracts/**/*.sol'",
+    "slither":        "slither ."
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@chainlink/contracts": "^1.2.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.12",
+    "solhint": "^4.5.0",
+    "dotenv": "^16.4.0",
+    "chai": "^4.4.1",
+    "ethers": "^6.11.0"
+  }
+}
