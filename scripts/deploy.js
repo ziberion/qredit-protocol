@@ -52,7 +52,10 @@ async function main() {
   let feeds = FEEDS[netName] || FEEDS.localhost;
 
   // ── Step 1: Deploy mock aggregators on local/testnet ────────────
-  if (netName === "localhost" || !feeds.USD) {
+  // On Sepolia we also use mocks — real Chainlink feeds vary by availability
+  // and the checksums in hardcoded addresses may differ. For mainnet, replace
+  // with verified feed addresses from https://docs.chain.link/data-feeds
+  if (netName === "localhost" || netName === "sepolia" || !feeds.USD) {
     console.log("📡 Deploying mock Chainlink aggregators...");
     const MockAgg = await ethers.getContractFactory("MockAggregatorV3");
 

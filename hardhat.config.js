@@ -3,41 +3,47 @@ require("hardhat-gas-reporter");
 require("solidity-coverage");
 require("dotenv").config();
 
-const PRIVATE_KEY   = process.env.PRIVATE_KEY   || "0x" + "0".repeat(64);
-const SEPOLIA_RPC   = process.env.SEPOLIA_RPC    || "";
-const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY  || "";
+const SEPOLIA_RPC   = process.env.SEPOLIA_RPC   || "";
+const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY || "";
+
+// Only include accounts when a valid key is present.
+// Hardhat requires exactly 32 bytes (64 hex chars, no 0x prefix in length count).
+function sepoliaAccounts() {
+  const key = (process.env.PRIVATE_KEY || "").trim();
+  if (!key) return [];
+  const hex = key.startsWith("0x") ? key.slice(2) : key;
+  if (hex.length !== 64) return [];
+  return ["0x" + hex];
+}
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.20",
+    version: "0.8.25",
     settings: {
       optimizer: {
         enabled: true,
         runs: 200,
       },
-      viaIR: false,
+      evmVersion: "cancun",
+      viaIR: true,
     },
   },
 
   networks: {
-    // ── Local node (hardhat node) ──────────────────────────────
     localhost: {
       url: "http://127.0.0.1:8545",
       chainId: 31337,
     },
 
-    // ── Hardhat in-process network (default for tests) ─────────
     hardhat: {
       chainId: 31337,
       allowUnlimitedContractSize: false,
-      gas: "auto",
     },
 
-    // ── Ethereum Sepolia testnet ───────────────────────────────
     sepolia: {
       url: SEPOLIA_RPC,
-      accounts: PRIVATE_KEY !== "0x" + "0".repeat(64) ? [PRIVATE_KEY] : [],
+      accounts: sepoliaAccounts(),
       chainId: 11155111,
       gasPrice: "auto",
       timeout: 120000,
@@ -45,22 +51,15 @@ module.exports = {
   },
 
   etherscan: {
-    apiKey: {
-      sepolia: ETHERSCAN_KEY,
-    },
+    apiKey: ETHERSCAN_KEY,
   },
 
   gasReporter: {
     enabled: process.env.REPORT_GAS === "true",
     currency: "USD",
     gasPrice: 20,
-    coinmarketcap: process.env.CMC_API_KEY || "",
     outputFile: "gas-report.txt",
     noColors: true,
-  },
-
-  coverage: {
-    exclude: ["contracts/mocks/"],
   },
 
   paths: {

@@ -9,3 +9,4 @@ typechain-types/
 deployments/
 .DS_Store
 *.log
+deployments/

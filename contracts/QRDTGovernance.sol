@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.25;
 
 // ============================================================
-//  QRDTGovernance v2.0
+//  QRDTGovernance v1.0
 //  qredits.io · github.com/ziberion/qredit-protocol
 //
 //  On-chain DAO for the Qredit protocol.
@@ -422,9 +422,9 @@ contract QRDTGovernance is AccessControl, ReentrancyGuard, Pausable {
         uint256 _timelockPeriod,
         uint256 _quorumPct
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(_votingPeriod   >= 1 days  && _votingPeriod   <= 14 days, "Voting period must be 1–14 days");
-        require(_timelockPeriod >= 6 hours && _timelockPeriod <= 7 days,  "Timelock must be 6h–7 days");
-        require(_quorumPct      >= 1       && _quorumPct      <= 50,      "Quorum must be 1–50%");
+        require(_votingPeriod   >= 1 days  && _votingPeriod   <= 14 days, "Voting period must be 1-14 days");
+        require(_timelockPeriod >= 6 hours && _timelockPeriod <= 7 days,  "Timelock must be 6h-7 days");
+        require(_quorumPct      >= 1       && _quorumPct      <= 50,      "Quorum must be 1-50%");
 
         pendingVotingPeriod     = _votingPeriod;
         pendingTimelockPeriod   = _timelockPeriod;

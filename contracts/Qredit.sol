@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.25;
 
 // ============================================================
-//  Qredit (QRDT) v2.0
+//  Qredit (QRDT) v1.0
 //  qredits.io · github.com/ziberion/qredit-protocol
 //
 //  A neutral global exchange currency anchored to a basket
@@ -459,7 +459,7 @@ contract Qredit is ERC20Votes, AccessControl, ReentrancyGuard, Pausable {
         address from,
         address to,
         uint256 amount
-    ) internal override(ERC20, ERC20Votes) {
+    ) internal override(ERC20Votes) {
         if (
             transferFeeBps > 0 &&
             from != address(0) &&
@@ -476,13 +476,4 @@ contract Qredit is ERC20Votes, AccessControl, ReentrancyGuard, Pausable {
         super._update(from, to, amount);
     }
 
-    /// @dev Required by ERC20Votes + ERC20Permit
-    function nonces(address owner)
-        public
-        view
-        override(ERC20Permit, Nonces)
-        returns (uint256)
-    {
-        return super.nonces(owner);
-    }
 }
