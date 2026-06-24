@@ -10,9 +10,6 @@ pragma solidity ^0.8.25;
 //  40% USD · 30% EUR · 15% JPY · 10% GBP · 5% XAU
 //
 //  Hybrid stabilization: ≥80% real-asset backed + ≤20% algorithmic
-//
-//  FIX PRE-01: ERC20Votes added for snapshot-based voting power
-//              (flash loan attack protection)
 // ============================================================
 
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
@@ -59,7 +56,7 @@ contract Qredit is ERC20Votes, AccessControl, ReentrancyGuard, Pausable {
     uint256 public constant MAX_TRANSFER_FEE   = 100;
 
     // ── Metadata ──────────────────────────────────────────────
-    string public constant VERSION = "2.0.0";
+    string public constant VERSION = "1.0.0";
     string public constant WEBSITE = "qredits.io";
 
     // ── Oracle ────────────────────────────────────────────────
